@@ -32,7 +32,6 @@ that we have created in the `__init__` function.
 '''
 
 class DBWNode(object):
-
     def __init__(self):
         rospy.init_node('dbw_node')
 
@@ -97,11 +96,11 @@ class DBWNode(object):
                                                                                 self.angular_vel)
             if self.dbw_enabled:
                 self.publish(self.throttle, self.brake, self.steering)
-                # if <dbw is enabled>:
+            # if <dbw is enabled>:
             #   self.publish(throttle, brake, steer)
             rate.sleep()
-
-    def dbw_enabled(self, msg):
+            
+    def dbw_enabled_cb(self, msg):
         self.dbw_enabled = msg
 
     def twist_cb(self, msg):
