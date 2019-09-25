@@ -145,7 +145,7 @@ class TLDetector(object):
         for i, light in enumerate(self.lights):
             # Get stop line way point index
             line = stop_line_positions[i]
-            tmp_wp_idx = self.get_closed_waypoint(line[0], line[1])
+            tmp_wp_idx = self.get_closest_waypoint(line[0], line[1])
             
             # Find closest stop line way point index
             d = temp_wp_idx - car_wp_idx
@@ -156,7 +156,7 @@ class TLDetector(object):
 
         if light:
             state = self.get_light_state(light)
-            return light_wp_idx, state
+            return line_wp_idx, state
         # self.waypoints = None
         return -1, TrafficLight.UNKNOWN
 
