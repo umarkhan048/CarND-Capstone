@@ -24,6 +24,7 @@ class TLDetector(object):
         self.waypoint_tree = None
         self.waypoints_2d = None
         self.camera_image = None
+        self.has_image = None
         self.lights = []
 
         sub1 = rospy.Subscriber('/current_pose', PoseStamped, self.pose_cb)
@@ -53,7 +54,16 @@ class TLDetector(object):
         self.last_wp = -1
         self.state_count = 0
 
-        rospy.spin()
+        self.loop()
+        
+    def loop(self):
+        rate = rospy.Rate(10)
+        while not rospy.is_shutdown():
+            if self.pose and self.waypoint_tree:
+                # Get closest waypoint
+                # closest_waypoint_idx = self.get_closest_waypoint_idx()
+                self.process_traffic_lights()
+            rate.sleep()    
 
     def pose_cb(self, msg):
         self.pose = msg
